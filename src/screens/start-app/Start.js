@@ -11,7 +11,7 @@ const Start = ({navigation}) => {
         <Text style={styles.H}>Your Recipes App</Text>
         <View style={styles.img}>
           <Image
-            source={require('C:/Users/buigi/OneDrive/Desktop/CookingRecipe/src/screens/start-app/Ảnh1.png')}
+            source={require('../start-app/Ảnh1.png')}
             style={{width: 100, height: 100}}
           />
         </View>
