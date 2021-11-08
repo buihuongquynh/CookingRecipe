@@ -15,7 +15,7 @@ const AppStack = () => {
           headerTitle: 'Recipe Cooking',
           headerRight: () => <Button title="Sign out" color="black" onPress={() => Auth.SignOut()}/>,
         }}
-      />
+      />    
     </Stack.Navigator>
   );
 };

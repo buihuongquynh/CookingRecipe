@@ -11,16 +11,7 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   return (
     <ApplicationProvider {...eva} theme={eva.light}>
-      <NavigationContainer initialRouteName="start">
-        <Stack.Navigator>
-          <Stack.Screen
-            name="start"
-            component={Start}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-      {/* <AppContainer/> */}
+      <AppContainer/>
     </ApplicationProvider>
   );
 };
