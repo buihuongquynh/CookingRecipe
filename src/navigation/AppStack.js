@@ -63,7 +63,7 @@ const AppStack = () => {
             </View>
           ),
         }}
-      />
+      />    
     </Stack.Navigator>
   );
 };

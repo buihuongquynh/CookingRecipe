@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Image,
   Text,
@@ -16,6 +16,10 @@ const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [confirmSecureTextEntry, setConfirmSecureTextEntry] = useState(true);
+  const inputEl1 = useRef();
+  const inputEl2 = useRef();
 
   const handleCreate = () => {
     if (!email || !password || !confirmPassword) {
@@ -49,6 +53,7 @@ const Login = ({navigation}) => {
             autoCapitalize="none"
             value={email}
             onChangeText={e => setEmail(e)}
+            onSubmitEditing={() => inputEl1.current.focus()}
           />
         </View>
         <Text style={styles.textAction}>Password</Text>
@@ -60,8 +65,18 @@ const Login = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={e => setPassword(e)}
-            secureTextEntry={true}
+            secureTextEntry={secureTextEntry ? true : false}
+            ref={inputEl1}
+            onSubmitEditing={() => inputEl2.current.focus()}
           />
+          <TouchableOpacity
+            onPress={() => setSecureTextEntry(!secureTextEntry)}>
+            {secureTextEntry ? (
+              <Feather name="eye-off" color="#fff" size={18} />
+            ) : (
+              <Feather name="eye" color="#fff" size={18} />
+            )}
+          </TouchableOpacity>
         </View>
         <Text style={styles.textAction}>Confirm Password</Text>
         <View style={styles.action}>
@@ -72,8 +87,17 @@ const Login = ({navigation}) => {
             style={styles.textInput}
             autoCapitalize="none"
             onChangeText={e => setConfirmPassword(e)}
-            secureTextEntry={true}
+            secureTextEntry={confirmSecureTextEntry ? true : false}
+            ref={inputEl2}
           />
+          <TouchableOpacity
+            onPress={() => setConfirmSecureTextEntry(!confirmSecureTextEntry)}>
+            {confirmSecureTextEntry ? (
+              <Feather name="eye-off" color="#fff" size={18} />
+            ) : (
+              <Feather name="eye" color="#fff" size={18} />
+            )}
+          </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.btnForget}>
           <Text style={styles.textForget}>Forget Password?</Text>
