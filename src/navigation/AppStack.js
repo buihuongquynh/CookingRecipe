@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../screens/Home/Home';
+import Explore from '../screens/Explore/Explore';
 import {
   Avatar,
   Button,
@@ -13,6 +14,7 @@ import {
 } from '@ui-kitten/components';
 import {Image, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Auth} from '../services';
+import Details from '../screens/Details/Details';
 const Stack = createNativeStackNavigator();
 
 const AppStack = () => {
@@ -28,7 +30,7 @@ const AppStack = () => {
     </TouchableOpacity>
   );
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="Explore">
       <Stack.Screen
         name="Home"
         component={Home}
@@ -46,7 +48,6 @@ const AppStack = () => {
                 }}
                 style={{width: 20, height: 20}}
               />
-
               <Popover
                 style={{marginTop: 7}}
                 visible={visible}
@@ -63,7 +64,52 @@ const AppStack = () => {
             </View>
           ),
         }}
-      />    
+      />
+      <Stack.Screen
+        name="Explore"
+        component={Explore}
+        options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          headerTintColor: '#fff',
+          headerTitle: 'Your Recipes App',
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{
+                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
+                }}
+                style={{width: 20, height: 20}}
+              />
+              <Popover
+                style={{marginTop: 7}}
+                visible={visible}
+                anchor={renderToggleButton}
+                onBackdropPress={() => setVisible(false)}>
+                <Layout style={styles.content}>
+                  <TouchableOpacity
+                    color="black"
+                    onPress={() => Auth.SignOut()}>
+                    <Text>Sign out</Text>
+                  </TouchableOpacity>
+                </Layout>
+              </Popover>
+            </View>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          headerTintColor: '#fff',
+          headerTitle: 'Main Dish',
+        }}
+      />
     </Stack.Navigator>
   );
 };

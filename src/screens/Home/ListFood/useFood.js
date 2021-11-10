@@ -18,12 +18,12 @@ const Home = () => {
   const DATA=[
     {
       name: "main course",
-      img :"https://www.themealdb.com/images/media/meals/wyrqqq1468233628.jpg",
+      img : "https://www.themealdb.com/images/media/meals/wyrqqq1468233628.jpg",
       count : "5 Recipes",
     },
     {
       name: "side dish",
-      img :"https://www.themealdb.com/images/media/meals/vvpprx1487325699.jpg",
+      img : "https://www.themealdb.com/images/media/meals/vvpprx1487325699.jpg",
       count : "5 Recipes",
     },
     {
