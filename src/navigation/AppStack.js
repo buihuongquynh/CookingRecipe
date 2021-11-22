@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Auth} from '../services';
 import {
   Avatar,
@@ -14,17 +13,58 @@ import {
   SelectItem,
 } from '@ui-kitten/components';
 // import { Icon } from '@ui-kitten/components';
-import Home from '../screens/Home/Home';
+import Favorite from '../screens/Favorite/Favorite';
 import Explore from '../screens/Explore/Explore';
-import Category from '../screens/Category/Category'
-import Favorite from '../screens/Favorite/Favorite'
-const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-function ExploreStackScreen() {
+import Category from '../screens/Category/Category';
+import Home from '../screens/Home/Home';
+import Details from '../screens/Details/Details';
+const ExploreStack = createNativeStackNavigator();
+function ExploreScreen() {
+   const [visible, setVisible] = React.useState(false);
+  const renderToggleButton = () => (
+    <TouchableOpacity onPress={() => setVisible(true)}>
+      <Image
+        source={{
+          uri: 'https://www.iconsdb.com/icons/preview/white/list-view-xxl.png',
+        }}
+        style={{width: 20, marginLeft: 20, height: 20}}
+      />
+    </TouchableOpacity>
+  );
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Explore" component={Explore} />
-      <Stack.Screen
+    <ExploreStack.Navigator >
+      <ExploreStack.Screen  
+       options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          headerTintColor: '#fff',
+          headerTitle: 'Explore',
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{
+                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
+                }}
+                style={{width: 20, height: 20}}
+              />
+              <Popover
+                style={{marginTop: 7}}
+                visible={visible}
+                anchor={renderToggleButton}
+                onBackdropPress={() => setVisible(false)}>
+                <Layout style={styles.content}>
+                  <TouchableOpacity
+                    color="black"
+                    onPress={() => Auth.SignOut()}>
+                    <Text>Sign out</Text>
+                  </TouchableOpacity>
+                </Layout>
+              </Popover>
+            </View>
+          ),
+        }} name="Explore" component={Explore} />
+      <ExploreStack.Screen
         options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
@@ -35,9 +75,10 @@ function ExploreStackScreen() {
         name="Details"
         component={Details}
       />
-    </Stack.Navigator>
+    </ExploreStack.Navigator>
   );
 }
+const Tab = createBottomTabNavigator();
 const AppStack = () => {
   const [visible, setVisible] = React.useState(false);
   const renderToggleButton = () => (
@@ -54,13 +95,14 @@ const AppStack = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
-      }}>
+      }}
+       screenOptions={{headerShown: false}}
+      >
       <Tab.Screen
         options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
-          },/>
-          ),
+          },
           headerTintColor: '#fff',
           headerTitle: 'Your Recipes App',
           headerRight: () => (
@@ -91,38 +133,9 @@ const AppStack = () => {
         component={Home}
       />
       <Tab.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          headerTintColor: '#fff',
-          headerTitle: 'Explore',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
-        }}
         name="Explore"
-        component={Explore}
+       
+        component={ExploreScreen}
       />
       <Tab.Screen
         options={{
@@ -206,5 +219,6 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
   },
-});
+}
+);
 export default AppStack;

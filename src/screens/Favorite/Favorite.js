@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, ScrollView, FlatList, SafeAreaView} from 'react-native';
-import styles from './Favorite.style';
 import useFavorite from './useFavorite';
+import styles from './Favorite.style';
 import Item from './Item/Item'
-const Category = ({navigation}) => {
+const Favorite = ({navigation}) => {
   const {data} = useFavorite();
   return (
     <View style={styles.container}>
@@ -18,4 +18,4 @@ const Category = ({navigation}) => {
   );
 };
 
-export default Category;
+export default Favorite;

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, ScrollView, FlatList, SafeAreaView} from 'react-native';
-import styles from './Category.style';
+
 import useCategory from './useCategory';
+import styles from './Category.style';
 import Item from './Item/Item'
 const Category = ({navigation}) => {
   const {data} = useCategory();

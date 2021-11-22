@@ -9,7 +9,22 @@ const styles = StyleSheet.create({
     margin: 8,
     width: WIDTH * 0.5 - 16,
     flexDirection: 'column',
-    marginBottom: 50,
+    marginBottom: 30,
+  },
+  Favorites: {
+    flexDirection: 'row',
+  },
+  textCategory: {
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  rowPr: {
+    flexDirection: 'column',
+    marginBottom: 20,
+  },
+  favorite: {
+    width: 20,
+    height: 20,
   },
   itemImage: {
     height: '95%',
@@ -24,7 +39,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 3,
   },
-  
 });
 
 export default styles;
