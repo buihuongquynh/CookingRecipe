@@ -1,7 +1,8 @@
-import React from 'react';
+import * as React from 'react';
+import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../screens/Home/Home';
-import Explore from '../screens/Explore/Explore';
+import {Auth} from '../services';
 import {
   Avatar,
   Button,
@@ -10,13 +11,77 @@ import {
   Popover,
   Select,
   SelectItem,
-  Text,
 } from '@ui-kitten/components';
-import {Image, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {Auth} from '../services';
+// import { Icon } from '@ui-kitten/components';
+import Favorite from '../screens/Favorite/Favorite';
+import Explore from '../screens/Explore/Explore';
+import Category from '../screens/Category/Category';
+import Home from '../screens/Home/Home';
 import Details from '../screens/Details/Details';
-const Stack = createNativeStackNavigator();
-
+const ExploreStack = createNativeStackNavigator();
+function ExploreScreen() {
+  const [visible, setVisible] = React.useState(false);
+  const renderToggleButton = () => (
+    <TouchableOpacity onPress={() => setVisible(true)}>
+      <Image
+        source={{
+          uri: 'https://www.iconsdb.com/icons/preview/white/list-view-xxl.png',
+        }}
+        style={{width: 20, marginLeft: 20, height: 20}}
+      />
+    </TouchableOpacity>
+  );
+  return (
+    <ExploreStack.Navigator>
+      <ExploreStack.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          headerTintColor: '#fff',
+          headerTitle: 'Explore',
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{
+                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
+                }}
+                style={{width: 20, height: 20}}
+              />
+              <Popover
+                style={{marginTop: 7}}
+                visible={visible}
+                anchor={renderToggleButton}
+                onBackdropPress={() => setVisible(false)}>
+                <Layout style={styles.content}>
+                  <TouchableOpacity
+                    color="black"
+                    onPress={() => Auth.SignOut()}>
+                    <Text>Sign out</Text>
+                  </TouchableOpacity>
+                </Layout>
+              </Popover>
+            </View>
+          ),
+        }}
+        name="Explore"
+        component={Explore}
+      />
+      <ExploreStack.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          headerTintColor: '#fff',
+          headerTitle: 'Main Dish',
+        }}
+        name="Details"
+        component={Details}
+      />
+    </ExploreStack.Navigator>
+  );
+}
+const Tab = createBottomTabNavigator();
 const AppStack = () => {
   const [visible, setVisible] = React.useState(false);
   const renderToggleButton = () => (
@@ -30,50 +95,82 @@ const AppStack = () => {
     </TouchableOpacity>
   );
   return (
-    <Stack.Navigator initialRouteName="Explore">
-      <Stack.Screen
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: '#e91e63',
+      }}
+      screenOptions={{headerShown: false}}>
+      <Tab.Screen
+        options={{
+          headerStyle: {
+            backgroundColor: '#EA1E63',
+          },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse4.mm.bing.net/th?id=OIP.3cio6sf4TpY02wmEU0uKZQHaHa&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
+          headerTintColor: '#fff',
+          headerTitle: 'Your Recipes App',
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{
+                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
+                }}
+                style={{width: 20, height: 20}}
+              />
+              <Popover
+                style={{marginTop: 7}}
+                visible={visible}
+                anchor={renderToggleButton}
+                onBackdropPress={() => setVisible(false)}>
+                <Layout style={styles.content}>
+                  <TouchableOpacity
+                    color="black"
+                    onPress={() => Auth.SignOut()}>
+                    <Text>Sign out</Text>
+                  </TouchableOpacity>
+                </Layout>
+              </Popover>
+            </View>
+          ),
+        }}
         name="Home"
         component={Home}
-        options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          headerTintColor: '#fff',
-          headerTitle: 'Your Recipes App',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
-        }}
       />
-      <Stack.Screen
+      <Tab.Screen
         name="Explore"
-        component={Explore}
+        options={{
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse1.mm.bing.net/th?id=OIP.1Sgq0Tkw7OdUb1mak4IvywAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
+        }}
+        component={ExploreScreen}
+      />
+      <Tab.Screen
         options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse2.mm.bing.net/th?id=OIP.qiWHzm1AgntpVfwqSeqPXgAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
           headerTintColor: '#fff',
-          headerTitle: 'Your Recipes App',
+          headerTitle: 'Category',
           headerRight: () => (
             <View style={{flexDirection: 'row'}}>
               <Image
@@ -98,19 +195,52 @@ const AppStack = () => {
             </View>
           ),
         }}
+        name="Category"
+        component={Category}
       />
-      <Stack.Screen
-        name="Details"
-        component={Details}
+      <Tab.Screen
         options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse2.mm.bing.net/th?id=OIP.E9lIORsc7yELILOFGZKBygAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
           headerTintColor: '#fff',
-          headerTitle: 'Main Dish',
+          headerTitle: 'Favorite',
+          headerRight: () => (
+            <View style={{flexDirection: 'row'}}>
+              <Image
+                source={{
+                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
+                }}
+                style={{width: 20, height: 20}}
+              />
+              <Popover
+                style={{marginTop: 7}}
+                visible={visible}
+                anchor={renderToggleButton}
+                onBackdropPress={() => setVisible(false)}>
+                <Layout style={styles.content}>
+                  <TouchableOpacity
+                    color="black"
+                    onPress={() => Auth.SignOut()}>
+                    <Text>Sign out</Text>
+                  </TouchableOpacity>
+                </Layout>
+              </Popover>
+            </View>
+          ),
         }}
+        name="Favorite"
+        component={Favorite}
       />
-    </Stack.Navigator>
+    </Tab.Navigator>
   );
 };
 const styles = StyleSheet.create({
@@ -119,6 +249,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 4,
     paddingVertical: 8,
+  },
+  icon: {
+    width: 32,
+    height: 32,
   },
 });
 export default AppStack;
