@@ -7,14 +7,13 @@ const styles = StyleSheet.create({
   item: {
     height: 200,
     margin: 8,
-    width: WIDTH * 0.5 - 16,
+    width: WIDTH ,
     flexDirection: 'column',
     marginBottom: 50,
   },
   itemImage: {
     height: '95%',
     width: '100%',
-    resizeMode: 'contain',
     borderRadius: 15,
     marginBottom: 5,
   },
@@ -23,8 +22,11 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 18,
     marginBottom: 3,
+      marginLeft:10,
   },
-  
+  textCategory:{
+  marginLeft:10,
+  }
 });
 
 export default styles;

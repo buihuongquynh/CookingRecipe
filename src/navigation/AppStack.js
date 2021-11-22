@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Auth} from '../services';
 import {
   Avatar,
@@ -20,7 +20,7 @@ import Home from '../screens/Home/Home';
 import Details from '../screens/Details/Details';
 const ExploreStack = createNativeStackNavigator();
 function ExploreScreen() {
-   const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
   const renderToggleButton = () => (
     <TouchableOpacity onPress={() => setVisible(true)}>
       <Image
@@ -32,9 +32,9 @@ function ExploreScreen() {
     </TouchableOpacity>
   );
   return (
-    <ExploreStack.Navigator >
-      <ExploreStack.Screen  
-       options={{
+    <ExploreStack.Navigator>
+      <ExploreStack.Screen
+        options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
@@ -63,7 +63,10 @@ function ExploreScreen() {
               </Popover>
             </View>
           ),
-        }} name="Explore" component={Explore} />
+        }}
+        name="Explore"
+        component={Explore}
+      />
       <ExploreStack.Screen
         options={{
           headerStyle: {
@@ -96,13 +99,20 @@ const AppStack = () => {
       screenOptions={{
         tabBarActiveTintColor: '#e91e63',
       }}
-       screenOptions={{headerShown: false}}
-      >
+      screenOptions={{headerShown: false}}>
       <Tab.Screen
         options={{
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse4.mm.bing.net/th?id=OIP.3cio6sf4TpY02wmEU0uKZQHaHa&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
           headerTintColor: '#fff',
           headerTitle: 'Your Recipes App',
           headerRight: () => (
@@ -134,7 +144,16 @@ const AppStack = () => {
       />
       <Tab.Screen
         name="Explore"
-       
+        options={{
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse1.mm.bing.net/th?id=OIP.1Sgq0Tkw7OdUb1mak4IvywAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
+        }}
         component={ExploreScreen}
       />
       <Tab.Screen
@@ -142,6 +161,14 @@ const AppStack = () => {
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse2.mm.bing.net/th?id=OIP.qiWHzm1AgntpVfwqSeqPXgAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
           headerTintColor: '#fff',
           headerTitle: 'Category',
           headerRight: () => (
@@ -176,6 +203,14 @@ const AppStack = () => {
           headerStyle: {
             backgroundColor: '#EA1E63',
           },
+          tabBarIcon: () => (
+            <Image
+              source={{
+                uri: 'https://tse2.mm.bing.net/th?id=OIP.E9lIORsc7yELILOFGZKBygAAAA&pid=Api&P=0&w=300&h=300',
+              }}
+              style={{width: 20, height: 20}}
+            />
+          ),
           headerTintColor: '#fff',
           headerTitle: 'Favorite',
           headerRight: () => (
@@ -215,10 +250,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 8,
   },
-    icon: {
+  icon: {
     width: 32,
     height: 32,
   },
-}
-);
+});
 export default AppStack;

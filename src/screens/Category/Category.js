@@ -12,7 +12,6 @@ const Category = ({navigation}) => {
         style={styles.listCategory}
         data={data}
         renderItem={({item}) => <Item item={item} navigation={navigation} />}
-        numColumns={2}
         keyExtractor={item => item.idMeal}
       />
     </View>
