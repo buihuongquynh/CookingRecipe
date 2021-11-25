@@ -6,27 +6,34 @@ const HEIGHT = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   item: {
     height: 200,
-    margin: 8,
-    width: WIDTH ,
+    margin: 10,
+    width: WIDTH - 16,
     flexDirection: 'column',
-    marginBottom: 50,
+    position: 'relative',
   },
   itemImage: {
-    height: '95%',
+    height: '100%',
     width: '100%',
-    borderRadius: 15,
-    marginBottom: 5,
+    resizeMode: 'cover',
+    borderRadius: 10,
+  },
+  itemContent: {
+    position: 'absolute',
+    bottom: 20,
+    left: 20,
   },
   itemText: {
-    color: '#000',
+    color: '#6e0500',
     fontWeight: '700',
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 3,
-      marginLeft:10,
+    fontFamily: 'OpenSans-Bold',
   },
-  textCategory:{
-  marginLeft:10,
-  }
+  textCategory: {
+    fontSize: 18,
+    fontFamily: 'OpenSans-Medium',
+    color: '#fa615a',
+  },
 });
 
 export default styles;

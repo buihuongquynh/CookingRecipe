@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-// import Feather from 'react-native-vector-icons/Feather';
-// import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './Signup.style';
 import {Auth} from '../../services';
 
@@ -45,7 +45,7 @@ const Login = ({navigation}) => {
         </View>
         <Text style={styles.textAction}>Email</Text>
         <View style={styles.action}>
-          {/* <FontAwesome name="user-o" color="#fff" size={20} /> */}
+          <FontAwesome name="user-o" color="#fff" size={20} />
           <TextInput
             placeholder="Your Email"
             placeholderTextColor="#fff"
@@ -58,7 +58,7 @@ const Login = ({navigation}) => {
         </View>
         <Text style={styles.textAction}>Password</Text>
         <View style={styles.action}>
-          {/* <Feather name="lock" color="#fff" size={20} /> */}
+          <Feather name="lock" color="#fff" size={20} />
           <TextInput
             placeholder="Your Password"
             placeholderTextColor="#fff"
@@ -71,16 +71,16 @@ const Login = ({navigation}) => {
           />
           <TouchableOpacity
             onPress={() => setSecureTextEntry(!secureTextEntry)}>
-            {/* {secureTextEntry ? (
+            {secureTextEntry ? (
               <Feather name="eye-off" color="#fff" size={18} />
             ) : (
               <Feather name="eye" color="#fff" size={18} />
-            )} */}
+            )}
           </TouchableOpacity>
         </View>
         <Text style={styles.textAction}>Confirm Password</Text>
         <View style={styles.action}>
-          {/* <Feather name="lock" color="#fff" size={20} /> */}
+          <Feather name="lock" color="#fff" size={20} />
           <TextInput
             placeholder="Confirm Password"
             placeholderTextColor="#fff"
@@ -92,11 +92,11 @@ const Login = ({navigation}) => {
           />
           <TouchableOpacity
             onPress={() => setConfirmSecureTextEntry(!confirmSecureTextEntry)}>
-            {/* {confirmSecureTextEntry ? (
+            {confirmSecureTextEntry ? (
               <Feather name="eye-off" color="#fff" size={18} />
             ) : (
               <Feather name="eye" color="#fff" size={18} />
-            )} */}
+            )}
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.btnForget}>

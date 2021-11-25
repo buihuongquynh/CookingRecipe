@@ -2,142 +2,44 @@ import * as React from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Auth} from '../services';
-import {
-  Avatar,
-  Button,
-  IndexPath,
-  Layout,
-  Popover,
-  Select,
-  SelectItem,
-} from '@ui-kitten/components';
-// import { Icon } from '@ui-kitten/components';
 import Favorite from '../screens/Favorite/Favorite';
 import Explore from '../screens/Explore/Explore';
 import Category from '../screens/Category/Category';
 import Home from '../screens/Home/Home';
 import Details from '../screens/Details/Details';
-const ExploreStack = createNativeStackNavigator();
-function ExploreScreen() {
-  const [visible, setVisible] = React.useState(false);
-  const renderToggleButton = () => (
-    <TouchableOpacity onPress={() => setVisible(true)}>
-      <Image
-        source={{
-          uri: 'https://www.iconsdb.com/icons/preview/white/list-view-xxl.png',
-        }}
-        style={{width: 20, marginLeft: 20, height: 20}}
-      />
-    </TouchableOpacity>
-  );
-  return (
-    <ExploreStack.Navigator>
-      <ExploreStack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          headerTintColor: '#fff',
-          headerTitle: 'Explore',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
-        }}
-        name="Explore"
-        component={Explore}
-      />
-      <ExploreStack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          headerTintColor: '#fff',
-          headerTitle: 'Main Dish',
-        }}
-        name="Details"
-        component={Details}
-      />
-    </ExploreStack.Navigator>
-  );
-}
+import Search from './../screens/Search/Search';
+import Header from '../components/Header/Header';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import ListCategory from '../screens/ListCategory/ListCategory';
 const Tab = createBottomTabNavigator();
-const AppStack = () => {
-  const [visible, setVisible] = React.useState(false);
-  const renderToggleButton = () => (
-    <TouchableOpacity onPress={() => setVisible(true)}>
-      <Image
-        source={{
-          uri: 'https://www.iconsdb.com/icons/preview/white/list-view-xxl.png',
-        }}
-        style={{width: 20, marginLeft: 20, height: 20}}
-      />
-    </TouchableOpacity>
-  );
+function BottomStack() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#e91e63',
-      }}
-      screenOptions={{headerShown: false}}>
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#EA1E63',
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontFamily: 'OpenSans-Medium',
+        },
+        tabBarActiveTintColor: '#EA1E63',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: {
+          height: 55,
+          paddingBottom: 5,
+          paddingTop: 5,
+        },
+      }}>
       <Tab.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          tabBarIcon: () => (
-            <Image
-              source={{
-                uri: 'https://tse4.mm.bing.net/th?id=OIP.3cio6sf4TpY02wmEU0uKZQHaHa&pid=Api&P=0&w=300&h=300',
-              }}
-              style={{width: 20, height: 20}}
-            />
+          tabBarIcon: ({color}) => (
+            <FontAwesome name="home" size={24} color={color} />
           ),
-          headerTintColor: '#fff',
-          headerTitle: 'Your Recipes App',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
+          headerTitle: () => <Header title="Your Recipes App" />,
         }}
         name="Home"
         component={Home}
@@ -145,114 +47,99 @@ const AppStack = () => {
       <Tab.Screen
         name="Explore"
         options={{
-          tabBarIcon: () => (
-            <Image
-              source={{
-                uri: 'https://tse1.mm.bing.net/th?id=OIP.1Sgq0Tkw7OdUb1mak4IvywAAAA&pid=Api&P=0&w=300&h=300',
-              }}
-              style={{width: 20, height: 20}}
-            />
+          tabBarIcon: ({color}) => (
+            <Feather name="scissors" color={color} size={24} />
           ),
+          headerTitle: () => <Header title="Explore" />,
         }}
-        component={ExploreScreen}
+        component={Explore}
       />
       <Tab.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          tabBarIcon: () => (
-            <Image
-              source={{
-                uri: 'https://tse2.mm.bing.net/th?id=OIP.qiWHzm1AgntpVfwqSeqPXgAAAA&pid=Api&P=0&w=300&h=300',
-              }}
-              style={{width: 20, height: 20}}
-            />
+          tabBarIcon: ({color}) => (
+            <MaterialIcons name="category" size={24} color={color} />
           ),
-          headerTintColor: '#fff',
-          headerTitle: 'Category',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
+          headerTitle: () => <Header title="Category" />,
         }}
         name="Category"
         component={Category}
       />
       <Tab.Screen
         options={{
-          headerStyle: {
-            backgroundColor: '#EA1E63',
-          },
-          tabBarIcon: () => (
-            <Image
-              source={{
-                uri: 'https://tse2.mm.bing.net/th?id=OIP.E9lIORsc7yELILOFGZKBygAAAA&pid=Api&P=0&w=300&h=300',
-              }}
-              style={{width: 20, height: 20}}
-            />
+          tabBarIcon: ({color}) => (
+            <FontAwesome name="heart" size={24} color={color} />
           ),
-          headerTintColor: '#fff',
-          headerTitle: 'Favorite',
-          headerRight: () => (
-            <View style={{flexDirection: 'row'}}>
-              <Image
-                source={{
-                  uri: 'https://www.iconsdb.com/icons/preview/white/search-12-xxl.png',
-                }}
-                style={{width: 20, height: 20}}
-              />
-              <Popover
-                style={{marginTop: 7}}
-                visible={visible}
-                anchor={renderToggleButton}
-                onBackdropPress={() => setVisible(false)}>
-                <Layout style={styles.content}>
-                  <TouchableOpacity
-                    color="black"
-                    onPress={() => Auth.SignOut()}>
-                    <Text>Sign out</Text>
-                  </TouchableOpacity>
-                </Layout>
-              </Popover>
-            </View>
-          ),
+          headerTitle: () => <Header title="Favorite" />,
         }}
         name="Favorite"
         component={Favorite}
       />
     </Tab.Navigator>
   );
+}
+
+const Stack = createNativeStackNavigator();
+
+const AppStack = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="BottomStack"
+      screenOptions={{
+        headerTintColor: '#fff',
+        headerStyle: {
+          backgroundColor: '#EA1E63',
+        },
+      }}>
+      <Stack.Screen
+        name="BottomStack"
+        component={BottomStack}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Details"
+        component={Details}
+        options={{
+          headerTitle: 'Details',
+          headerRight: () => {
+            return (
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity style={{marginRight: 10}}>
+                  <Feather name="heart" color="#fff" size={22} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Feather name="share-2" color="#fff" size={22} />
+                </TouchableOpacity>
+              </View>
+            );
+          },
+        }}
+      />
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        options={{
+          headerTitle: 'List Food Category',
+          headerRight: () => {
+            return (
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity style={{marginRight: 10}}>
+                  <Feather name="list" color="#fff" size={22} />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Feather name="share-2" color="#fff" size={22} />
+                </TouchableOpacity>
+              </View>
+            );
+          },
+        }}
+        name="ListCategory"
+        component={ListCategory}
+      />
+    </Stack.Navigator>
+  );
 };
-const styles = StyleSheet.create({
-  content: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 4,
-    paddingVertical: 8,
-  },
-  icon: {
-    width: 32,
-    height: 32,
-  },
-});
+
 export default AppStack;

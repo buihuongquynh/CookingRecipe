@@ -1,14 +1,19 @@
 import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
-    Item:{
-        width:150,
-        height:200,
-        marginRight:7
-    },
-    Title:{
-        fontSize:16,
-        fontWeight:'600',
-        color:'black'
-    }
+  Item: {
+    width: 170,
+    height: 200,
+    marginHorizontal: 5,
+  },
+  Title: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: 'black',
+    textTransform: 'capitalize',
+    marginBottom: 5,
+  },
+  res: {
+    fontSize: 16,
+  },
 });
 export default styles;

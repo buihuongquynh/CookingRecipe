@@ -1,9 +1,11 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import styles from './Details.style';
 import {View, Text, ScrollView, Image} from 'react-native';
 import ReadMore from 'react-native-read-more-text';
+
 const Details = ({navigation, route}) => {
   const {data} = route.params;
+
   var ingredient = [];
   var measure = [];
   const setIngredeients = () => {
@@ -21,9 +23,7 @@ const Details = ({navigation, route}) => {
     }
   };
 
-  useEffect(() => {
-    setIngredeients();
-  }, []);
+  setIngredeients();
 
   return (
     <ScrollView style={styles.container}>
