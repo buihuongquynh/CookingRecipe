@@ -4,30 +4,26 @@ import {Divider, List, ListItem} from '@ui-kitten/components';
 import styles from './Food.style';
 import useFood from './useFood';
 import Item from './Item/Item';
-const Category = () => {
-  const {data, DATA} = useFood();
+import {useNavigation} from '@react-navigation/native';
+const Food = () => {
+  const navigation = useNavigation();
+  const {data} = useFood();
+
   const renderItem = ({item}) => {
-    return (
-      <View style={styles.Row}>
-        <Item
-          item={item}
-          // onPress={() => setSelectedId(item.id)}
-        />
-      </View>
-    );
+    return <Item data={item} />;
   };
   return (
     <View style={styles.home}>
       <Text style={styles.titleCategory}>Recent</Text>
-      <ScrollView>
+      <ScrollView style={{margin: 5}}>
         <FlatList
-          keyExtractor={item => item.id}
-          numColumns={3}
+          keyExtractor={item => item.idMeal}
           data={data}
           renderItem={renderItem}
+          horizontal={true}
         />
       </ScrollView>
     </View>
   );
 };
-export default Category;
+export default Food;
